@@ -18,5 +18,12 @@ spec:
         application: dockercoins
     spec:
       containers:
-      - image: dockercoins/worker:v0.1
+      - image: slickteam/dockercoins-worker:v0.1
         name: worker
+        readinessProbe:
+            exec:
+              command:
+                - curl
+                - -X 
+                - "ceci est un test"
+                - http://hasher

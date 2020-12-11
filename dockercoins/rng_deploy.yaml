@@ -17,7 +17,7 @@ spec:
         application: dockercoins
     spec:
       containers:
-      - image: dockercoins/rng:v0.1
+      - image: slickteam/dockercoins-rng:v0.1
         name: rng
         livenessProbe:
             httpGet:
