@@ -1,4 +1,4 @@
-# Formaton docker pour kubernetes
+# Formaton apprivoiser Kubernetes
 
 Ce dépôt contient les sources utiles pour le stagiaires.
 
@@ -8,15 +8,14 @@ Les branches nommées **solution_<nom_chapitre>** contient les solutions des exe
 
 ## Contenu de la branche main
 
-Le dossier `rust-sample/` est un projet **hello-world** en **Rust**
+Le dossier `dockercoins/` est un projet "*micro-service" pour générer des "dockercoins"
 
-Le dossier `spring-petclinic/` est le projet demo de **Spring**
+Le dossier `bugged-dockercoins/` est une version boguée de **dockercoins**
 
-Le projet `wordsmith/` est un TP pour apprendre à écrire des Dockerfiles
+Le dossier `configurations/` est un TP pour tester une configuration de projet via un **ConfigMap**
 
-Le dossier `hello-world-module/` est un un projet **hello-world** en **Java** avec la gestion des modules de Java9
+Le dossier `chevereto` est un logiciel de stockage de photos en lignes
 
-Le dossier `spring-petclinic-modules/` est à nouveau le projet demo de **Spring**, mais avec la gestion des modules de Java9
 
 
 
