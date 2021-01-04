@@ -3,7 +3,7 @@
 # not persistently stored and will go away every time the Pod restarts. Consider
 # using a Helm chart that provisions a StatefulSet instead of Deployment.
 ################################################################################
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: guestbook-mongodb
@@ -11,7 +11,8 @@ metadata:
     app: guestbook
     tier: db
 spec:
-  replicas: 1
+  serviceName: guestbook-mongodb
+  replicas: 3
   selector:
     matchLabels:
       app: guestbook
@@ -22,6 +23,7 @@ spec:
         app: guestbook
         tier: db
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
           image: mongo:4
@@ -31,7 +33,29 @@ spec:
             - name: mongodb-data
               mountPath: /data/db
           resources: {}
-      volumes:
-      - name: mongodb-data
-        persistentVolumeClaim:
-          claimName: mongodb-data-pvc   
+          command:
+            - mongod
+            - "--replSet"
+            - rs0
+            - "--bind_ip"
+            - 0.0.0.0
+            - "--smallfiles"
+            - "--noprealloc"
+        # Ce conteneur "sidecar" permet de configurer mongodb automatiquement
+        - name: mongo-sidecar
+          image: cvallance/mongo-k8s-sidecar
+          env:
+            - name: MONGO_SIDECAR_POD_LABELS
+              value: "app=guestbook,tier=db"
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodb-data
+        labels:
+          app: guestbook
+          tier: db
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Mi

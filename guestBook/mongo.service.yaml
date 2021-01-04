@@ -6,6 +6,7 @@ metadata:
     tier: db
   name: guestbook-mongodb
 spec:
+  clusterIP: None
   ports:
     - port: 27017
       targetPort: 27017
