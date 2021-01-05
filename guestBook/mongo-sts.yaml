@@ -32,21 +32,19 @@ spec:
           volumeMounts:
             - name: mongodb-data
               mountPath: /data/db
-          resources: {}
           command:
             - mongod
+            - "--bind_ip_all"
             - "--replSet"
             - rs0
-            - "--bind_ip"
-            - 0.0.0.0
-            - "--smallfiles"
-            - "--noprealloc"
         # Ce conteneur "sidecar" permet de configurer mongodb automatiquement
         - name: mongo-sidecar
           image: cvallance/mongo-k8s-sidecar
           env:
             - name: MONGO_SIDECAR_POD_LABELS
               value: "app=guestbook,tier=db"
+            - name: KUBERNETES_MONGO_SERVICE_NAME
+              value: guestbook-mongodb
   volumeClaimTemplates:
     - metadata:
         name: mongodb-data
