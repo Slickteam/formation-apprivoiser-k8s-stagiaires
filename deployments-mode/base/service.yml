@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: grid
+  labels:
+    app: grid
+spec:
+  selector:
+    app: grid
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  type: NodePort

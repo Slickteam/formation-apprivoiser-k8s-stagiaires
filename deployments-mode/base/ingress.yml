@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grid
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: grid.52.143.135.102.nip.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grid
+          servicePort: 80
